@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script>
+      THREEx.ArToolkitContext.baseURL =
+        "https://raw.githack.com/jeromeetienne/ar.js/master/three.js/";
+    </script>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
+      ><a-entity
+        gltf-model="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f956746a-760e-45cb-b61d-c53f4cd4ea06/Turtle.gltf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220409%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220409T165926Z&X-Amz-Expires=86400&X-Amz-Signature=62e2687316c724bbf1b7fbaca6f03605b9d8426b7be8d1bdf7d288db04700d84&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Turtle.gltf%22&x-id=GetObject"
+        rotation="0 180 0"
+        scale="0.15 0.15 0.15"
+        gps-entity-place="longitude: 35.140537; latitude: 48.305897;"
+        animation-mixer
+      />
+      <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+  </body>
+</html>
