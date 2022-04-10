@@ -1,78 +1,4 @@
 <!DOCTYPE html>
-<!--
-/*
- * Copyright 2017 Google Inc. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
--->
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Building an augmented reality application with the WebXR Device API
-    </title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
-    />
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-    <!-- three.js -->
-    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
-    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../shared/app.css" />
-    <script src="../shared/utils.js"></script>
-  </head>
-  <body>
-    <div id="enter-ar-info" class="mdc-card demo-card">
-      <h2>Augmented Reality with the WebXR Device API</h2>
-      <p>
-        This is an experiment using augmented reality features with the WebXR
-        Device API. Upon entering AR, you will be surrounded by a world of
-        cubes. Learn more about these features from the
-        <a href="https://codelabs.developers.google.com/codelabs/ar-with-webxr"
-          >Building an augmented reality application with the WebXR Device
-          API</a
-        >
-        Code Lab.
-      </p>
-
-      <!-- Starting an immersive WebXR session requires user interaction. Start the WebXR experience with a simple button. -->
-      <a id="enter-ar" class="mdc-button mdc-button--raised mdc-button--accent">
-        Start augmented reality
-      </a>
-    </div>
-
-    <div id="unsupported-info" class="mdc-card demo-card">
-      <h2>Unsupported Browser</h2>
-      <p>
-        Your browser does not support AR features with WebXR. Learn more about
-        these features from the
-        <a href="https://codelabs.developers.google.com/codelabs/ar-with-webxr"
-          >Building an augmented reality application with the WebXR Device
-          API</a
-        >
-        Code Lab.
-      </p>
-    </div>
-    <script src="app.js"></script>
-    <div id="stabilization"></div>
-  </body>
-</html>
-
-<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -87,16 +13,20 @@
       vr-mode-ui="enabled: false"
       embedded
       arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
-      arjs-look-controls="smoothingFactor: 0.2"
       ><a-entity
         gltf-model="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f956746a-760e-45cb-b61d-c53f4cd4ea06/Turtle.gltf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220409%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220409T165926Z&X-Amz-Expires=86400&X-Amz-Signature=62e2687316c724bbf1b7fbaca6f03605b9d8426b7be8d1bdf7d288db04700d84&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Turtle.gltf%22&x-id=GetObject"
-        rotation="0 180 0"
         maxDistance="100"
         scale="250 250 250"
         gps-entity-place="longitude: 35.139780; latitude: 48.305740;"
         animation-mixer
       />
-      <a-camera gps-camera rotation-reader></a-camera>
+      <a-camera
+        look-controls-enabled
+        id="camera1"
+        arjs-look-controls="smoothingFactor: 0.1"
+        gps-camera="gpsMinDistance: 5"
+        rotation-reader
+      ></a-camera>
     </a-scene>
   </body>
-</html> -->
+</html>
