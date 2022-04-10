@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>GeoAR.js demo</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
   </head>
+
   <body style="margin: 0; overflow: hidden">
     <a-scene
-      vr-mode-ui="enabled: false"
+      renderer="logarithmicDepthBuffer: true;"
       embedded
-      arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
-      ><a-entity
-        gltf-model="./assets/Turtle.glb"
+      loading-screen="enabled: false;"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-assets>
+        <a-asset-item id="animated-asset" src="assets/asset.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity
         maxDistance="100"
-        scale="1000 1000 1000"
-        gps-entity-place="longitude: 35.139780; latitude: 48.305740;"
-        animation-mixer
-        rotation="180 0 0"
-      />
+        look-at="[gps-camera]"
+        animation-mixer="loop: repeat"
+        gltf-model="#animated-asset"
+        scale="19.118902708609664 19.118902708609664 19.118902708609664"
+        gps-entity-place="latitude: 48.30574058361596; longitude: -324.8602208588273;"
+      ></a-entity>
 
-      <a-camera
-        look-controls-enabled
-        id="camera1"
-        arjs-look-controls="smoothingFactor: 0.1"
-        rotation-reader
-      ></a-camera>
+      <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
-
-    <script src="./app.js" type="module"></script>
   </body>
 </html>
