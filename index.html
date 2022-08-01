@@ -5,14 +5,7 @@
     <script src="js/gesture-handler.js"></script>
   </head>
   <body>
-    <a-scene
-      arjs
-      embedded
-      renderer="logarithmicDepthBuffer: true;"
-      vr-mode-ui="enabled: false"
-      gesture-detector
-      id="scene"
-    >
+    <a-scene>
       <a-assets timeout="30000">
         <a-asset-item
           id="SM_Turtle_PinkShirt"
@@ -34,7 +27,12 @@
 
       <a-camera position="0 0 0"></a-camera>
 
-      <a-entity id="dino" gesture-handler position="0 -2 -3" scale="0.3 0.3 0.3">
+      <a-entity
+        id="dino"
+        gesture-handler
+        position="0 -2 -3"
+        scale="0.3 0.3 0.3"
+      >
         <a-entity
           id="entityModel"
           position="0 0 0"
