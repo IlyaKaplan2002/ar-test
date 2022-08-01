@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="js/gesture-handler.js"></script>
   </head>
-
-  <body style="margin: 0; overflow: hidden">
+  <body>
     <a-scene
-      renderer="logarithmicDepthBuffer: true;"
+      arjs
       embedded
-      loading-screen="enabled: false;"
-      arjs="sourceType: webcam; debugUIEnabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      vr-mode-ui="enabled: false"
+      gesture-detector
+      id="scene"
     >
-      <a-assets>
-        <a-asset-item id="animated-asset" src="assets/asset.glb"></a-asset-item>
+      <a-assets timeout="30000">
+        <a-asset-item
+          id="SM_Turtle_PinkShirt"
+          src="https://cdn.glitch.global/34df8d02-6726-4bc2-bfab-f4a299791ee2/SM_Turtle_PinkShirt.glb?v=1659108011824"
+        ></a-asset-item>
+        <a-asset-item
+          id="SM_Turtle_GoldenShell"
+          src="https://cdn.glitch.global/34df8d02-6726-4bc2-bfab-f4a299791ee2/SM_Turtle_GoldenShell.glb?v=1659108015207"
+        ></a-asset-item>
+        <a-asset-item
+          id="SM_Turtle_EthGlasses"
+          src="https://cdn.glitch.global/34df8d02-6726-4bc2-bfab-f4a299791ee2/SM_Turtle_EthGlasses.glb?v=1659108028290"
+        ></a-asset-item>
+        <a-asset-item
+          id="SM_Turtle_ChildEgg"
+          src="https://cdn.glitch.global/34df8d02-6726-4bc2-bfab-f4a299791ee2/SM_Turtle_ChildEgg.glb?v=1659108045348"
+        ></a-asset-item>
       </a-assets>
 
-      <a-entity
-        maxDistance="100"
-        look-at="[gps-camera]"
-        animation-mixer="loop: repeat"
-        gltf-model="#animated-asset"
-        scale="25 25 25"
-        gps-entity-place="latitude: 48.30574058361596; longitude: -324.8602208588273;"
-      ></a-entity>
+      <a-camera position="0 0 0"></a-camera>
 
-      <a-camera gps-camera rotation-reader></a-camera>
+      <a-entity id="dino" gesture-handler position="0 -2 -3" scale="0.3 0.3 0.3">
+        <a-entity
+          id="entityModel"
+          position="0 0 0"
+          rotation="0 70 0"
+          gltf-model="#SM_Turtle_PinkShirt"
+          animation-mixer
+          shadow="cast: true; receive: false"
+        ></a-entity>
+      </a-entity>
     </a-scene>
+
+    <script src="js/ar.js"></script>
   </body>
 </html>
