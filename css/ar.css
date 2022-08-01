@@ -1,0 +1,110 @@
+.screen {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.back {
+  cursor: pointer;
+  border: none;
+  background: white;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.twitter-share-button {
+  display: block;
+  margin: 0 auto;
+  background-color: #1d9bf0;
+  height: 28px;
+  border-radius: 9999px;
+  padding: 1px 12px 1px 12px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 26px;
+  width: fit-content;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.twitterIcon {
+  /* margin-top: 4px; */
+  height: 18px;
+  width: 18px;
+  fill: #fff;
+}
+
+.twitterText {
+  margin-left: 4px;
+}
+
+.twitter-share-button:hover {
+  background-color: #0c7abf;
+}
+
+.preview {
+  width: 100vw;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform 300ms ease;
+  background: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.preview.open {
+  transform: translateX(0);
+}
+
+.previewImage {
+  height: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.lds-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border: 3px solid black;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: black transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -5,11 +5,104 @@ const assetsIds = [
   '#SM_Turtle_ChildEgg',
 ];
 
-// const scene = document.querySelector('#scene');
+const scene = document.querySelector('#scene');
 const entityModel = document.querySelector('#entityModel');
 const dino = document.querySelector('#dino');
+const screenBtn = document.querySelector('#screen');
+const preview = document.querySelector('#preview');
+const previewImage = document.querySelector('#previewImage');
+const tweet = document.querySelector('#tweet');
+const back = document.querySelector('#back');
 
-let isMarkerVisible = false;
+function captureVideoFrame(video, format, width, height) {
+  if (typeof video === 'string') {
+    video = document.querySelector(video);
+  }
+
+  format = format || 'jpeg';
+
+  if (!video || (format !== 'png' && format !== 'jpeg')) {
+    return false;
+  }
+
+  var canvas = document.createElement('CANVAS');
+
+  canvas.width = width || video.videoWidth;
+  canvas.height = height || video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  var dataUri = canvas.toDataURL('image/' + format);
+  var data = dataUri.split(',')[1];
+  var mimeType = dataUri.split(';')[0].slice(5);
+
+  var bytes = window.atob(data);
+  var buf = new ArrayBuffer(bytes.length);
+  var arr = new Uint8Array(buf);
+
+  for (var i = 0; i < bytes.length; i++) {
+    arr[i] = bytes.charCodeAt(i);
+  }
+
+  var blob = new Blob([arr], { type: mimeType });
+  return {
+    blob: blob,
+    dataUri: dataUri,
+    format: format,
+    width: canvas.width,
+    height: canvas.height,
+  };
+}
+
+function resizeCanvas(origCanvas, width, height) {
+  let resizedCanvas = document.createElement('canvas');
+  let resizedContext = resizedCanvas.getContext('2d');
+
+  resizedCanvas.height = width;
+  resizedCanvas.width = height;
+
+  resizedContext.drawImage(origCanvas, 0, 0, width, height);
+  return resizedCanvas.toDataURL();
+}
+
+async function takeScreen() {
+  let aScene = scene.components.screenshot.getCanvas('perspective');
+  let frame = captureVideoFrame('video', 'png');
+  aScene = resizeCanvas(aScene, frame.width, frame.height);
+  frame = frame.dataUri;
+  const image = await mergeImages([frame, aScene]).then(b64 => {
+    return b64;
+  });
+
+  return image;
+}
+
+const setLoading = () => {
+  screenBtn.disabled = true;
+  screenBtn.innerHTML = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
+};
+
+const removeLoading = () => {
+  screenBtn.disabled = false;
+  screenBtn.innerHTML = `
+  <svg id="icon-camera" fill="black" width="32" height="32" viewBox="0 0 32 32">
+        <path
+          d="M9.5 19c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5-2.91-6.5-6.5-6.5-6.5 2.91-6.5 6.5zM30 8h-7c-0.5-2-1-4-3-4h-8c-2 0-2.5 2-3 4h-7c-1.1 0-2 0.9-2 2v18c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-2-2-2zM16 27.875c-4.902 0-8.875-3.973-8.875-8.875s3.973-8.875 8.875-8.875c4.902 0 8.875 3.973 8.875 8.875s-3.973 8.875-8.875 8.875zM30 14h-4v-2h4v2z"
+        ></path>
+      </svg>`;
+};
+
+const onScreen = async () => {
+  console.log('screen');
+  setLoading();
+  const image = await takeScreen();
+  console.log(image);
+  removeLoading();
+  preview.className = 'preview open';
+  previewImage.setAttribute('src', image);
+  tweet.setAttribute(
+    'href',
+    'https://twitter.com/intent/tweet?text=Hello%20world&url=https://google.com',
+  );
+};
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -26,36 +119,13 @@ const getRandomAssetIdAndScale = () => {
   };
 };
 
-// const handleRotation = event => {
-//   if (isMarkerVisible) {
-//     el.object3D.rotation.y += event.detail.positionChange.x * rotationFactor;
-
-//     el.object3D.rotation.x += event.detail.positionChange.y * rotationFactor;
-//   }
-// };
-
-// const handleScale = event => {
-//   if (isMarkerVisible) {
-//     this.scaleFactor *= 1 + event.detail.spreadChange / event.detail.startSpread;
-
-//     this.scaleFactor = Math.min(Math.max(this.scaleFactor, this.data.minScale), this.data.maxScale);
-
-//     el.object3D.scale.x = scaleFactor * initialScale.x;
-//     el.object3D.scale.y = scaleFactor * initialScale.y;
-//     el.object3D.scale.z = scaleFactor * initialScale.z;
-//   }
-// };
+const onBack = () => {
+  preview.className = 'preview';
+};
 
 const randomAssetIdAndScale = getRandomAssetIdAndScale();
 
 entityModel.setAttribute('gltf-model', randomAssetIdAndScale.id);
 dino.setAttribute('scale', randomAssetIdAndScale.scale);
-
-// scene.addEventListener('markerFound', e => {
-//   isMarkerVisible = true;
-// });
-// scene.addEventListener('markerLost', e => {
-//   isMarkerVisible = false;
-// });
-// scene.addEventListener('onefingermove', handleRotation);
-// scene.addEventListener('twofingermove', handleScale);
+screenBtn.addEventListener('click', onScreen);
+back.addEventListener('click', onBack);
