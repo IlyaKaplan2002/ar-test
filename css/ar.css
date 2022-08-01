@@ -67,12 +67,16 @@
   transform: translateX(0);
 }
 
+.imageConatiner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 .previewImage {
   height: 50%;
   display: block;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  margin-left: 50px;
 }
 
 .lds-ring {
