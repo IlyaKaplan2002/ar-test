@@ -80,8 +80,8 @@ async function takeScreen() {
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
   const image = await mergeImages([frame, aScene], {
-    width: 3 * frame.width,
-    height: 3 * frame.height,
+    width: 10 * frame.width,
+    height: 10 * frame.height,
   }).then((b64) => {
     return b64;
   });
