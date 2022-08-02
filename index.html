@@ -6,6 +6,9 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://unpkg.com/merge-images"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="js/gesture-detector.js"></script>
+    <script src="js/gesture-handler.js"></script>
 
     <link rel="stylesheet" href="css/ar.css" />
   </head>
@@ -27,9 +30,7 @@
           ></path>
         </svg>
       </button>
-      <div class="imageConatiner">
-        <img src="" id="previewImage" class="previewImage" />
-      </div>
+      <img src="" id="previewImage" class="previewImage" />
       <a
         target="_blank"
         data-size="large"
@@ -48,6 +49,7 @@
     <div id="screenCapture">
       <a-scene
         id="scene"
+        gesture-detector
         renderer="logarithmicDepthBuffer: true;"
         loading-screen="enabled: false;"
         arjs="sourceType: webcam; debugUIEnabled: false;"

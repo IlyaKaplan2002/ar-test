@@ -1,38 +1,38 @@
 const assetsIds = [
-  '#SM_Turtle_PinkShirt',
-  '#SM_Turtle_GoldenShell',
-  '#SM_Turtle_EthGlasses',
-  '#SM_Turtle_ChildEgg',
+  "#SM_Turtle_PinkShirt",
+  "#SM_Turtle_GoldenShell",
+  "#SM_Turtle_EthGlasses",
+  "#SM_Turtle_ChildEgg",
 ];
 
-const scene = document.querySelector('#scene');
-const entityModel = document.querySelector('#entityModel');
-const dino = document.querySelector('#dino');
-const screenBtn = document.querySelector('#screen');
-const preview = document.querySelector('#preview');
-const previewImage = document.querySelector('#previewImage');
-const tweet = document.querySelector('#tweet');
-const back = document.querySelector('#back');
+const scene = document.querySelector("#scene");
+const entityModel = document.querySelector("#entityModel");
+const dino = document.querySelector("#dino");
+const screenBtn = document.querySelector("#screen");
+const preview = document.querySelector("#preview");
+const previewImage = document.querySelector("#previewImage");
+const tweet = document.querySelector("#tweet");
+const back = document.querySelector("#back");
 
 function captureVideoFrame(video, format, width, height) {
-  if (typeof video === 'string') {
+  if (typeof video === "string") {
     video = document.querySelector(video);
   }
 
-  format = format || 'jpeg';
+  format = format || "jpeg";
 
-  if (!video || (format !== 'png' && format !== 'jpeg')) {
+  if (!video || (format !== "png" && format !== "jpeg")) {
     return false;
   }
 
-  var canvas = document.createElement('CANVAS');
+  var canvas = document.createElement("CANVAS");
 
   canvas.width = width || video.videoWidth;
   canvas.height = height || video.videoHeight;
-  canvas.getContext('2d').drawImage(video, 0, 0);
-  var dataUri = canvas.toDataURL('image/' + format);
-  var data = dataUri.split(',')[1];
-  var mimeType = dataUri.split(';')[0].slice(5);
+  canvas.getContext("2d").drawImage(video, 0, 0);
+  var dataUri = canvas.toDataURL("image/" + format);
+  var data = dataUri.split(",")[1];
+  var mimeType = dataUri.split(";")[0].slice(5);
 
   var bytes = window.atob(data);
   var buf = new ArrayBuffer(bytes.length);
@@ -53,8 +53,8 @@ function captureVideoFrame(video, format, width, height) {
 }
 
 function resizeCanvas(origCanvas, width, height) {
-  let resizedCanvas = document.createElement('canvas');
-  let resizedContext = resizedCanvas.getContext('2d');
+  let resizedCanvas = document.createElement("canvas");
+  let resizedContext = resizedCanvas.getContext("2d");
 
   resizedCanvas.height = width;
   resizedCanvas.width = height;
@@ -64,11 +64,11 @@ function resizeCanvas(origCanvas, width, height) {
 }
 
 async function takeScreen() {
-  let aScene = scene.components.screenshot.getCanvas('perspective');
-  let frame = captureVideoFrame('video', 'png');
+  let aScene = scene.components.screenshot.getCanvas("perspective");
+  let frame = captureVideoFrame("video", "png");
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
-  const image = await mergeImages([frame, aScene]).then(b64 => {
+  const image = await mergeImages([frame, aScene]).then((b64) => {
     return b64;
   });
 
@@ -77,7 +77,8 @@ async function takeScreen() {
 
 const setLoading = () => {
   screenBtn.disabled = true;
-  screenBtn.innerHTML = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
+  screenBtn.innerHTML =
+    '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
 };
 
 const removeLoading = () => {
@@ -91,16 +92,16 @@ const removeLoading = () => {
 };
 
 const onScreen = async () => {
-  console.log('screen');
+  console.log("screen");
   setLoading();
   const image = await takeScreen();
   console.log(image);
   removeLoading();
-  preview.className = 'preview open';
-  previewImage.setAttribute('src', image);
+  preview.className = "preview open";
+  previewImage.setAttribute("src", image);
   tweet.setAttribute(
-    'href',
-    'https://twitter.com/intent/tweet?text=Hello%20world&url=https://google.com',
+    "href",
+    "https://twitter.com/intent/tweet?text=Hello%20world&url=https://google.com"
   );
 };
 
@@ -115,17 +116,18 @@ const getRandomAssetIdAndScale = () => {
   console.log(randomInt);
   return {
     id: assetsIds[randomInt],
-    scale: randomInt === 0 || randomInt === 2 ? '0.3 0.3 0.3' : '0.025 0.025 0.025',
+    scale:
+      randomInt === 0 || randomInt === 2 ? "0.3 0.3 0.3" : "0.025 0.025 0.025",
   };
 };
 
 const onBack = () => {
-  preview.className = 'preview';
+  preview.className = "preview";
 };
 
 const randomAssetIdAndScale = getRandomAssetIdAndScale();
 
-entityModel.setAttribute('gltf-model', randomAssetIdAndScale.id);
-dino.setAttribute('scale', randomAssetIdAndScale.scale);
-screenBtn.addEventListener('click', onScreen);
-back.addEventListener('click', onBack);
+entityModel.setAttribute("gltf-model", randomAssetIdAndScale.id);
+dino.setAttribute("scale", randomAssetIdAndScale.scale);
+screenBtn.addEventListener("click", onScreen);
+back.addEventListener("click", onBack);
