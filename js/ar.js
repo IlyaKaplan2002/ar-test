@@ -98,7 +98,6 @@ const onScreen = async () => {
   const image = await takeScreen();
   console.log(image);
   removeLoading();
-  entityModel.setAttribute("gesture-handle", false);
   preview.className = "preview open";
   previewImage.setAttribute("src", image);
   tweet.setAttribute(
@@ -124,7 +123,6 @@ const getRandomAssetIdAndScale = () => {
 };
 
 const onBack = () => {
-  entityModel.setAttribute("gesture-handle", true);
   preview.className = "preview";
 };
 
