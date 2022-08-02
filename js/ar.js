@@ -60,7 +60,7 @@ function resizeCanvas(origCanvas, width, height) {
   resizedCanvas.height = height;
   resizedCanvas.width = width;
 
-  resizedContext.drawImage(origCanvas, 0, 0, width, height * 0.8);
+  resizedContext.drawImage(origCanvas, 0, 0, width, height * 0.5);
   return resizedCanvas.toDataURL();
 }
 
