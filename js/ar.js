@@ -77,8 +77,8 @@ function resizeCanvas(origCanvas, width, height) {
   } else {
     // Portrait
     var scale = height / width;
-    var scaledHeight = origCanvas.width * scale;
-    var scaledWidth = origCanvas.height * scale;
+    var scaledHeight = origCanvas.height * scale;
+    var scaledWidth = origCanvas.width * scale;
     var marginLeft = (origCanvas.width - scaledWidth) / 2;
     resizedContext.drawImage(
       origCanvas,
