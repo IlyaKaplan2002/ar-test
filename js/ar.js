@@ -12,6 +12,7 @@ const screenBtn = document.querySelector("#screen");
 const screenCapture = document.querySelector("#screenCapture");
 const preview = document.querySelector("#preview");
 const previewImage = document.querySelector("#previewImage");
+const downloadLink = document.querySelector("#downloadLink");
 const tweet = document.querySelector("#tweet");
 const back = document.querySelector("#back");
 
@@ -112,6 +113,7 @@ const onScreen = async () => {
   removeLoading();
   preview.className = "preview open";
   previewImage.setAttribute("src", image);
+  downloadLink.setAttribute("href", image);
   tweet.setAttribute(
     "href",
     "https://twitter.com/intent/tweet?text=Hello%20world&url=https://google.com"
