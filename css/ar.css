@@ -71,13 +71,13 @@
   height: 50%;
   display: block;
   width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .previewImage {
   height: 100%;
   display: block;
-  margin: 0 auto;
-  margin-bottom: 20px;
 }
 
 .lds-ring {
