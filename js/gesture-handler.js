@@ -13,19 +13,19 @@ AFRAME.registerComponent("gesture-handler", {
     this.handleScale = this.handleScale.bind(this);
     this.handleRotation = this.handleRotation.bind(this);
 
-    this.isVisible = false;
+    this.isVisible = true;
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
 
-    this.el.sceneEl.addEventListener("markerFound", (e) => {
-      this.isVisible = true;
-    });
+    // this.el.sceneEl.addEventListener("markerFound", (e) => {
+    //   this.isVisible = true;
+    // });
 
     console.log(this.el);
 
-    this.el.sceneEl.addEventListener("markerLost", (e) => {
-      this.isVisible = false;
-    });
+    // this.el.sceneEl.addEventListener("markerLost", (e) => {
+    //   this.isVisible = false;
+    // });
   },
 
   update: function () {
