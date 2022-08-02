@@ -53,6 +53,17 @@ function captureVideoFrame(video, format, width, height) {
   };
 }
 
+// function resizeCanvas(origCanvas, width, height) {
+//   let resizedCanvas = document.createElement("canvas");
+//   let resizedContext = resizedCanvas.getContext("2d");
+
+//   resizedCanvas.height = height;
+//   resizedCanvas.width = width;
+
+//   resizedContext.drawImage(origCanvas, 0, 0, width, height);
+//   return resizedCanvas.toDataURL();
+// }
+
 function resizeCanvas(origCanvas, width, height) {
   let resizedCanvas = document.createElement("canvas");
   let resizedContext = resizedCanvas.getContext("2d");
@@ -60,7 +71,24 @@ function resizeCanvas(origCanvas, width, height) {
   resizedCanvas.height = height;
   resizedCanvas.width = width;
 
-  resizedContext.drawImage(origCanvas, 0, 0, width, height);
+  if (width > height) {
+    // Landscape
+    resizedContext.drawImage(origCanvas, 0, 0, width, height);
+  } else {
+    // Portrait
+    var scale = height / width;
+    var scaledHeight = origCanvas.width * scale;
+    var scaledWidth = origCanvas.height * scale;
+    var marginLeft = (origCanvas.width - scaledWidth) / 2;
+    resizedContext.drawImage(
+      origCanvas,
+      marginLeft,
+      0,
+      scaledWidth,
+      scaledHeight
+    );
+  }
+
   return resizedCanvas.toDataURL();
 }
 
