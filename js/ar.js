@@ -98,7 +98,7 @@ const onScreen = async () => {
   const image = await takeScreen();
   console.log(image);
   removeLoading();
-  screenCapture.style.display = "none";
+  entityModel.setAttribute("gesture-handle", false);
   preview.className = "preview open";
   previewImage.setAttribute("src", image);
   tweet.setAttribute(
@@ -124,7 +124,7 @@ const getRandomAssetIdAndScale = () => {
 };
 
 const onBack = () => {
-  screenCapture.style.display = "block";
+  entityModel.setAttribute("gesture-handle", true);
   preview.className = "preview";
 };
 
