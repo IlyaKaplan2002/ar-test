@@ -48,13 +48,10 @@
     </div>
 
     <div id="screenCapture">
-      <a-scene
-        arjs
-        renderer="logarithmicDepthBuffer: true;"
-        vr-mode-ui="enabled: false"
-        gesture-detector
-        id="scene"
-      >
+      <a-scene gesture-detector id="scene">
+        <!-- arjs
+      renderer="logarithmicDepthBuffer: true;"
+      vr-mode-ui="enabled: false" -->
         <canvas></canvas>
         <a-assets timeout="30000">
           <a-asset-item
