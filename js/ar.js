@@ -98,7 +98,7 @@ const onScreen = async () => {
   const image = await takeScreen();
   console.log(image);
   removeLoading();
-  screenCapture.display = "none";
+  screenCapture.style.display = "none";
   preview.className = "preview open";
   previewImage.setAttribute("src", image);
   tweet.setAttribute(
@@ -124,7 +124,7 @@ const getRandomAssetIdAndScale = () => {
 };
 
 const onBack = () => {
-  screenCapture.display = "block";
+  screenCapture.style.display = "block";
   preview.className = "preview";
 };
 
