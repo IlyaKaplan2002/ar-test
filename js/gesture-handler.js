@@ -1,6 +1,6 @@
 /* global AFRAME, THREE */
 
-AFRAME.registerComponent('gesture-handler', {
+AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     rotationFactor: { default: 5 },
@@ -9,6 +9,7 @@ AFRAME.registerComponent('gesture-handler', {
   },
 
   init: function () {
+    console.log("handler init");
     this.handleScale = this.handleScale.bind(this);
     this.handleRotation = this.handleRotation.bind(this);
 
@@ -16,44 +17,49 @@ AFRAME.registerComponent('gesture-handler', {
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
 
-    this.el.sceneEl.addEventListener('markerFound', e => {
+    this.el.sceneEl.addEventListener("markerFound", (e) => {
       this.isVisible = true;
     });
 
-    this.el.sceneEl.addEventListener('markerLost', e => {
+    console.log(this.el);
+
+    this.el.sceneEl.addEventListener("markerLost", (e) => {
       this.isVisible = false;
     });
   },
 
   update: function () {
     if (this.data.enabled) {
-      this.el.sceneEl.addEventListener('onefingermove', this.handleRotation);
-      this.el.sceneEl.addEventListener('twofingermove', this.handleScale);
+      this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+      this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
     } else {
-      this.el.sceneEl.removeEventListener('onefingermove', this.handleRotation);
-      this.el.sceneEl.removeEventListener('twofingermove', this.handleScale);
+      this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+      this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
     }
   },
 
   remove: function () {
-    this.el.sceneEl.removeEventListener('onefingermove', this.handleRotation);
-    this.el.sceneEl.removeEventListener('twofingermove', this.handleScale);
+    this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+    this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
   },
 
   handleRotation: function (event) {
     if (this.isVisible) {
-      this.el.object3D.rotation.y += event.detail.positionChange.x * this.data.rotationFactor;
-      this.el.object3D.rotation.x += event.detail.positionChange.y * this.data.rotationFactor;
+      this.el.object3D.rotation.y +=
+        event.detail.positionChange.x * this.data.rotationFactor;
+      this.el.object3D.rotation.x +=
+        event.detail.positionChange.y * this.data.rotationFactor;
     }
   },
 
   handleScale: function (event) {
     if (this.isVisible) {
-      this.scaleFactor *= 1 + event.detail.spreadChange / event.detail.startSpread;
+      this.scaleFactor *=
+        1 + event.detail.spreadChange / event.detail.startSpread;
 
       this.scaleFactor = Math.min(
         Math.max(this.scaleFactor, this.data.minScale),
-        this.data.maxScale,
+        this.data.maxScale
       );
 
       this.el.object3D.scale.x = this.scaleFactor * this.initialScale.x;

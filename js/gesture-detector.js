@@ -1,12 +1,16 @@
 // Component that detects and emits events for touch gestures
 
-AFRAME.registerComponent('gesture-detector', {
+AFRAME.registerComponent("gesture-detector", {
   schema: {
-    element: { default: '' },
+    element: { default: "" },
   },
 
   init: function () {
-    this.targetElement = this.data.element && document.querySelector(this.data.element);
+    console.log("detector init");
+    this.targetElement =
+      this.data.element && document.querySelector(this.data.element);
+
+    console.log(this.data.element);
 
     if (!this.targetElement) {
       this.targetElement = this.el;
@@ -18,19 +22,19 @@ AFRAME.registerComponent('gesture-detector', {
 
     this.emitGestureEvent = this.emitGestureEvent.bind(this);
 
-    this.targetElement.addEventListener('touchstart', this.emitGestureEvent);
+    this.targetElement.addEventListener("touchstart", this.emitGestureEvent);
 
-    this.targetElement.addEventListener('touchend', this.emitGestureEvent);
+    this.targetElement.addEventListener("touchend", this.emitGestureEvent);
 
-    this.targetElement.addEventListener('touchmove', this.emitGestureEvent);
+    this.targetElement.addEventListener("touchmove", this.emitGestureEvent);
   },
 
   remove: function () {
-    this.targetElement.removeEventListener('touchstart', this.emitGestureEvent);
+    this.targetElement.removeEventListener("touchstart", this.emitGestureEvent);
 
-    this.targetElement.removeEventListener('touchend', this.emitGestureEvent);
+    this.targetElement.removeEventListener("touchend", this.emitGestureEvent);
 
-    this.targetElement.removeEventListener('touchmove', this.emitGestureEvent);
+    this.targetElement.removeEventListener("touchmove", this.emitGestureEvent);
   },
 
   emitGestureEvent(event) {
@@ -39,14 +43,17 @@ AFRAME.registerComponent('gesture-detector', {
     const previousState = this.internalState.previousState;
 
     const gestureContinues =
-      previousState && currentState && currentState.touchCount == previousState.touchCount;
+      previousState &&
+      currentState &&
+      currentState.touchCount == previousState.touchCount;
 
     const gestureEnded = previousState && !gestureContinues;
 
     const gestureStarted = currentState && !gestureContinues;
 
     if (gestureEnded) {
-      const eventName = this.getEventPrefix(previousState.touchCount) + 'fingerend';
+      const eventName =
+        this.getEventPrefix(previousState.touchCount) + "fingerend";
 
       this.el.emit(eventName, previousState);
 
@@ -60,7 +67,8 @@ AFRAME.registerComponent('gesture-detector', {
 
       currentState.startSpread = currentState.spread;
 
-      const eventName = this.getEventPrefix(currentState.touchCount) + 'fingerstart';
+      const eventName =
+        this.getEventPrefix(currentState.touchCount) + "fingerstart";
 
       this.el.emit(eventName, currentState);
 
@@ -88,7 +96,8 @@ AFRAME.registerComponent('gesture-detector', {
 
       Object.assign(eventDetail, previousState);
 
-      const eventName = this.getEventPrefix(currentState.touchCount) + 'fingermove';
+      const eventName =
+        this.getEventPrefix(currentState.touchCount) + "fingermove";
 
       this.el.emit(eventName, eventDetail);
     }
@@ -114,10 +123,12 @@ AFRAME.registerComponent('gesture-detector', {
     // Calculate center of all current touches
 
     const centerPositionRawX =
-      touchList.reduce((sum, touch) => sum + touch.clientX, 0) / touchList.length;
+      touchList.reduce((sum, touch) => sum + touch.clientX, 0) /
+      touchList.length;
 
     const centerPositionRawY =
-      touchList.reduce((sum, touch) => sum + touch.clientY, 0) / touchList.length;
+      touchList.reduce((sum, touch) => sum + touch.clientY, 0) /
+      touchList.length;
 
     touchState.positionRaw = { x: centerPositionRawX, y: centerPositionRawY };
 
@@ -139,7 +150,7 @@ AFRAME.registerComponent('gesture-detector', {
             sum +
             Math.sqrt(
               Math.pow(centerPositionRawX - touch.clientX, 2) +
-                Math.pow(centerPositionRawY - touch.clientY, 2),
+                Math.pow(centerPositionRawY - touch.clientY, 2)
             )
           );
         }, 0) / touchList.length;
@@ -151,7 +162,7 @@ AFRAME.registerComponent('gesture-detector', {
   },
 
   getEventPrefix(touchCount) {
-    const numberNames = ['one', 'two', 'three', 'many'];
+    const numberNames = ["one", "two", "three", "many"];
 
     return numberNames[Math.min(touchCount, 4) - 1];
   },
