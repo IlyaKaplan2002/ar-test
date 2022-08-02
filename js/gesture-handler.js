@@ -30,7 +30,7 @@ AFRAME.registerComponent("gesture-handler", {
 
   update: function () {
     if (this.data.enabled) {
-      this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+      // this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
       this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
     } else {
       // this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
@@ -47,6 +47,8 @@ AFRAME.registerComponent("gesture-handler", {
     if (this.isVisible) {
       this.el.object3D.rotation.y +=
         event.detail.positionChange.x * this.data.rotationFactor;
+      console.log(event.detail.positionChange.x);
+      console.log(this.data.rotationFactor);
       this.el.object3D.rotation.x +=
         event.detail.positionChange.y * this.data.rotationFactor;
     }
