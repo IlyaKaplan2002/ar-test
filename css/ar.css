@@ -66,8 +66,15 @@
   transform: translateX(0);
 }
 
-.previewImage {
+.downloadLink {
+  display: block;
   height: 50%;
+  display: block;
+  width: fit-content;
+}
+
+.previewImage {
+  height: 100%;
   display: block;
   margin: 0 auto;
   margin-bottom: 20px;
