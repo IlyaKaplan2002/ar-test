@@ -31,7 +31,7 @@ function resizeCanvas(origCanvas, width, height) {
   resizedCanvas.height = height;
   resizedCanvas.width = width;
 
-  resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
+  resizedContext.drawImage(origCanvas, offsetX, 0, w * 0.9, h);
   return resizedCanvas.toDataURL();
 }
 
@@ -79,8 +79,8 @@ async function takeScreen() {
   aScene = resizeCanvas(aScene, frame.width, frame.height);
   frame = frame.dataUri;
   const image = await mergeImages([frame, aScene], {
-    width: 1.5 * frame.width,
-    height: 1.5 * frame.height,
+    width: 3 * frame.width,
+    height: 3 * frame.height,
   }).then((b64) => {
     return b64;
   });
