@@ -9,6 +9,7 @@ const scene = document.querySelector("#scene");
 const entityModel = document.querySelector("#entityModel");
 const dino = document.querySelector("#dino");
 const screenBtn = document.querySelector("#screen");
+const screenCapture = document.querySelector("#screenCapture");
 const preview = document.querySelector("#preview");
 const previewImage = document.querySelector("#previewImage");
 const tweet = document.querySelector("#tweet");
@@ -97,6 +98,7 @@ const onScreen = async () => {
   const image = await takeScreen();
   console.log(image);
   removeLoading();
+  screenCapture.display = "none";
   preview.className = "preview open";
   previewImage.setAttribute("src", image);
   tweet.setAttribute(
@@ -122,6 +124,7 @@ const getRandomAssetIdAndScale = () => {
 };
 
 const onBack = () => {
+  screenCapture.display = "block";
   preview.className = "preview";
 };
 
