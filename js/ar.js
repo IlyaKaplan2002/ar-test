@@ -128,6 +128,10 @@ const onBack = () => {
 
 const randomAssetIdAndScale = getRandomAssetIdAndScale();
 
+document.addEventListener("gesturestart", function (e) {
+  e.preventDefault();
+});
+
 entityModel.setAttribute("gltf-model", randomAssetIdAndScale.id);
 dino.setAttribute("scale", randomAssetIdAndScale.scale);
 screenBtn.addEventListener("click", onScreen);
