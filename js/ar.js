@@ -31,7 +31,7 @@ function resizeCanvas(origCanvas, width, height) {
   resizedCanvas.height = height;
   resizedCanvas.width = width;
 
-  resizedContext.drawImage(origCanvas, offsetX, 0, w * 0.9, h);
+  resizedContext.drawImage(origCanvas, offsetX, 0, w, h);
   return resizedCanvas.toDataURL();
 }
 
